@@ -10,41 +10,55 @@
 
 module.exports = function(grunt) {
 
-  // Please see the Grunt documentation for more information regarding task
-  // creation: http://gruntjs.com/creating-tasks
+	// Please see the Grunt documentation for more information regarding task
+	// creation: http://gruntjs.com/creating-tasks
 
-  grunt.registerMultiTask('magick_svg2png', 'Convert SVGs to PNGs via ImageMagick.', function() {
-    // Merge task-specific and/or target-specific options with these defaults.
-    var options = this.options({
-      punctuation: '.',
-      separator: ', '
-    });
+	grunt.registerMultiTask('magick_svg2png', 'Convert SVGs to PNGs via ImageMagick.', function() {
+		// Merge task-specific and/or target-specific options with these defaults.
+		var options = this.options({
+			punctuation: '.',
+			separator: ', '
+		});
 
-    // Iterate over all specified file groups.
-    this.files.forEach(function(f) {
-      // Concat specified files.
-      var src = f.src.filter(function(filepath) {
-        // Warn on and remove invalid source files (if nonull was set).
-        if (!grunt.file.exists(filepath)) {
-          grunt.log.warn('Source file "' + filepath + '" not found.');
-          return false;
-        } else {
-          return true;
-        }
-      }).map(function(filepath) {
-        // Read file source.
-        return grunt.file.read(filepath);
-      }).join(grunt.util.normalizelf(options.separator));
+		// vars
+		const path = require('path');
+		const widths = this.data.options.widths;
+		let conversionsDone = 0;
 
-      // Handle options.
-      src += options.punctuation;
+		// Iterate over all specified file groups.
+		this.files.forEach(function(f) {
+			f.src.filter(function(filepath) {
+				widths.forEach(function(width) {
+					// Assume filename ends in '.svg'
+					const baseFileName = path.basename(filepath).slice(0, -4);
+					const options = {
+						cmd: 'convert',
+						stdio: 'inherit',
+						args: [
+							'-background',
+							'transparent',
+							'-resize',
+							width + 'x' + width,
+							filepath,
+							f.dest + baseFileName + '-' + width + '.png'
+						]
+					};
 
-      // Write the destination file.
-      grunt.file.write(f.dest, src);
+					grunt.verbose.writeln('Conversion task:', options);
 
-      // Print a success message.
-      grunt.log.writeln('File "' + f.dest + '" created.');
-    });
-  });
+					grunt.util.spawn(options, function(error, result, code) {
+						if (error) {
+							grunt.log.error('convert exit code:', code);
+							throw(error);
+						} else {
+							conversionsDone += 1;
+							grunt.verbose.writeln(conversionsDone,
+									'SVG to PNG conversions complete.');
+						}
+					});
+				});
+			});
+		});
+	});
 
 };

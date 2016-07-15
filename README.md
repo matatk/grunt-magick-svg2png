@@ -2,6 +2,10 @@
 
 > Convert SVGs to PNGs via ImageMagick.
 
+**Help wanted:** I wrote this as I could not find any other means to take a single SVG and generate several differently-sized PNGs directly from it (I tried several other Grunt plugins but for various reasons did not meet with success). I'm not an expert at creating Grunt plugins and, so far alas, it does not have tests (eek). This is why I've not published it officially for NPM (though it can be installed by using the URL of this Git repo). If you have the cycles to 'level up' this plugin such that it *could* be published, patches would be most welcome.
+
+**Warning:** As a result of this being mainly for my own use and currently not having tests and all those good things it should have, I probably won't have time to work on any significant issues. If you can help out, please do.
+
 ## Getting Started
 This plugin requires Grunt `~1.0`
 
@@ -86,4 +90,4 @@ grunt.initConfig({
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
-_(Nothing yet)_
+* 0.0.0 - 2016-07-15 - Initial
