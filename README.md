@@ -2,9 +2,7 @@
 
 > Convert SVGs to PNGs via ImageMagick.
 
-**Help wanted:** I wrote this as I could not find any other means to take a single SVG and generate several differently-sized PNGs directly from it (I tried several other Grunt plugins but for various reasons did not meet with success). I'm not an expert at creating Grunt plugins and, so far alas, it does not have tests (eek). This is why I've not published it officially for NPM (though it can be installed by using the URL of this Git repo). If you have the cycles to 'level up' this plugin such that it *could* be published, patches would be most welcome.
-
-**Warning:** As a result of this being mainly for my own use and currently not having tests and all those good things it should have, I probably won't have time to work on any significant issues. If you can help out, please do.
+**UNMAINTAINED:** I wrote this as I could not find any other means to take a single SVG and generate several differently-sized PNGs directly from it (I tried several other Grunt plugins but for various reasons did not meet with success). Since then, however, I've moved to using [grunt-phantom-rasterize](https://github.com/runspired/grunt-phantom-rasterize). I'm not an expert at creating Grunt plugins and, so far alas, this does not have tests (eek). This is why I've not published it officially for NPM (though it can be installed by using the URL of this Git repo). If you have the cycles to 'level up' this plugin such that it *could* be published, patches would be most welcome.
 
 ## Getting Started
 This plugin requires Grunt `~1.0`
